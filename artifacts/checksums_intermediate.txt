@@ -1,0 +1,1 @@
+4a1ebb97cbf48c1edbbe15996f964e24bf51290ec270e1c91c6f623469c1b978  ./target/wasm32-unknown-unknown/release/cudos_todo_athena.wasm

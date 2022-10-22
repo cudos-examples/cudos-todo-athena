@@ -1,4 +1,7 @@
-use cosmwasm_schema::{cw_serde, QueryResponses};
+use cosmwasm_schema::{cw_serde};
+use cosmwasm_std::Addr;
+use schemars::JsonSchema;
+use serde::{Serialize, Deserialize};
 
 #[cw_serde]
 pub struct InstantiateMsg {
@@ -7,20 +10,24 @@ pub struct InstantiateMsg {
 
 #[cw_serde]
 pub enum ExecuteMsg {
-    Increment {},
-    Reset { count: i32 },
+    CreateTodo { id: String, description: String },
 }
 
 #[cw_serde]
-#[derive(QueryResponses)]
 pub enum QueryMsg {
     // GetCount returns the current count as a json-encoded number
-    #[returns(GetCountResponse)]
     GetCount {},
 }
 
 // We define a custom struct for each query response
-#[cw_serde]
-pub struct GetCountResponse {
-    pub count: i32,
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct TodoResponse {
+    pub entries: Vec<Entry>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct Entry {
+    pub description: String,
+    pub owner: Addr,
+    pub done: bool,
 }
